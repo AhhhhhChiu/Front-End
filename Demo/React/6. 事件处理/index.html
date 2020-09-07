@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>index</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="app"></div>
+    <script type="text/babel">
+
+        class Elem extends React.Component {
+            handleClick(e) {
+                // 需要这样阻止默认行为
+                e.preventDefault();
+                alert('The link was clicked.');
+            }
+
+            render() {
+                return (
+                    <a href="https://www.baidu.com" onClick={this.handleClick}>百度</a>
+                )
+            }
+        }
+
+        class Toggle extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    isToggleOn: true
+                }
+                // 建议绑定
+                // this.handleClick = this.handleClick.bind(this);
+                // 或者函数写成这样 func = () => {...}
+            }
+
+            handleClick(args) {
+                // 这样写是不对的 会异步
+                // this.setState({
+                //     isToggleOn: !this.state.isToggleOn
+                // })
+                // ()=>({}) 后面的函数体需要加括号
+                console.log(this);
+                console.log(args);
+                // return;
+                this.setState(state => ({
+                    isToggleOn: !state.isToggleOn
+                }))
+            }
+
+            render() {
+                return (
+                    <button onClick={this.handleClick.bind(this, "hello")}>{this.state.isToggleOn ? 'ON' : 'OFF'}</button>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            // <Elem />,
+            <Toggle />,
+            document.getElementById('app')
+        );
+    </script>
+
+</body>
+
+</html>

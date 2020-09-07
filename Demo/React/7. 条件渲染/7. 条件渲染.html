@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>index</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="app"></div>
+    <script type="text/babel">
+        function LoginButton(props) {
+            return (
+                <button onClick={props.onClick}>LOGIN</button>
+            )
+        }
+
+        function LogoutButton(props) {
+            return (
+                <button onClick={props.onClick}>LOGOUT</button>
+            )
+        }
+
+        function UserGreeting(props) {
+            return (
+                <h2>Welcome back!</h2>
+            )
+        }
+
+        function GuestGreeting(props) {
+            return (
+                <h2>Please sign in</h2>
+            )
+        }
+
+        function Greeting(props) {
+            return (
+                <div>
+                    {props.isLogin ? <UserGreeting /> : <GuestGreeting />}
+                </div>
+            )
+        }
+
+        class LoginControl extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    isLogin: false
+                }
+                this.handleLogin = this.handleLogin.bind(this);
+                this.handleLogout = this.handleLogout.bind(this);
+            }
+
+            handleLogin() {
+                this.setState({
+                    isLogin: false
+                })
+            }
+
+            handleLogout() {
+                this.setState({
+                    isLogin: true
+                })
+            }
+
+            render() {
+                // 也可以通过判断参数return null来实现动态显示隐藏
+                return (
+                    <div>
+                        <Greeting isLogin={this.state.isLogin} />
+                        {this.state.isLogin ? <LogoutButton onClick={this.handleLogin} /> : <LoginButton onClick={this.handleLogout} />}
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <LoginControl />,
+            document.getElementById('app')
+        );
+    </script>
+
+</body>
+
+</html>

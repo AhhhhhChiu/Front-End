@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>index</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="app"></div>
+    <script type="text/babel">
+        class List extends React.Component {
+            render() {
+                let list = [1, 2, 3, 4];
+                // 不建议使用index作为key值
+                // 在 map() 方法中的元素需要设置 key 属性。
+                let nodeList = list.map(elem => <li key={elem}>{elem}</li>);
+                return (
+                    <ul>
+                        {nodeList}
+                    </ul>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <List />,
+            document.getElementById('app')
+        );
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+.main {
+    overflow-x: hidden;
+    background-color: #fcfcfc;
+    height: 100%;
+    min-width: 100vh;
+    position: relative;
+}
+
+.sider-bar {
+    position: fixed;
+    height: 100%;
+    width: 300px;
+    background-color: #fff;
+    box-shadow: 3px 0 10px 0 #eee;
+}
+
+.sider-bar-title {
+    font-size: 22px;
+    font-weight: lighter;
+    display: flex;
+    align-items: center;
+}
+
+.sider-bar-title-logo {
+    height: 40px;
+    width: 40px;
+    border-radius: 500px;
+}
+
+.sider-bar-list {
+    font-size: 16px;
+    color: #666;
+    padding: 10px 30px;
+}
+
+.sider-bar-list-item {
+    display: flex;
+    height: 40px;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: .2s margin;
+}
+
+.sider-bar-list-item:hover{
+    margin-left: 10px;
+}
+
+.sider-bar-list-item-icon {
+    margin-right: 25px;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+.right {
+    min-height: 100%;
+    width: 100% - 300px;
+    margin-left: 300px;
+    padding: 30px;
+}
+
+.line{
+    height: 1px;
+    width: 100%;
+    background-color: #eee;
+}
+
+.top-bar{
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top-bar-user{
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.top-bar-user-img{
+    height: 60px;
+    width: 60px;
+    border-radius: 500px;
+}
+
+.top-bar-user-info{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-left: 30px;
+    padding: 5px 0px;
+    justify-content: space-between;
+}
+
+.top-bar-user-info-name{
+    font-weight: bold;
+}
+
+.top-bar-user-info-address{
+    font-size: 12px;
+    font-weight: bold;
+    color: #999;
+}
+
+.top-bar-search{
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    width: 300px;
+    height: 40px;
+    border: solid 1px #ededed;
+    border-radius: 500px;
+    padding: 5px 25px;
+    color: #888;
+    box-shadow: 0 0 10px 0 #eee;
+}
+
+.main-container{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+}

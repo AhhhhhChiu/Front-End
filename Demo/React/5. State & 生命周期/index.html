@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>index</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+
+    <div id="example"></div>
+    <script type="text/babel">
+        class Clock extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    date: new Date()
+                }
+            }
+
+            // 组件第一次被渲染到 DOM 中
+            componentDidMount() {
+                this.timerID = setInterval(() => {
+                    this.tick();
+                }, 1000);
+            }
+
+            // 组件被删除时
+            componentWillUnmount() {
+                clearInterval(this.timerID);
+            }
+
+            tick() {
+                // State 的更新可能是异步的
+                // Wrong
+                // this.setState({
+                //   counter: this.state.counter + this.props.increment,
+                // });
+                // Correct
+                // this.setState((state, props) => ({
+                // counter: state.counter + props.increment
+                // }));
+                this.setState({
+                    date: new Date()
+                })
+            }
+
+            render() {
+                return (
+                    <span>It`s {this.state.date.toLocaleTimeString()}</span>
+                )
+            }
+        };
+
+        ReactDOM.render(
+            <Clock/>,
+            document.getElementById('example')
+        );
+    </script>
+
+</body>
+
+</html>
