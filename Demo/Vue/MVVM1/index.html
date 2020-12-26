@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./utils.js"></script>
+  <script src="Compiler.js"></script>
+  <script src="MVVM.js"></script>
+</head>
+<body>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+  <div id="app">
+    {{title}}
+    <input v-model="name" />
+    <span>{{name}}, {{msg}}</span>
+  </div>
+  <script>
+    new MVVM({
+      el: '#app',
+      data: {
+        title: 'mvvm',
+        msg: 'hello',
+        name: 'Jennifer',
+      },
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "Tasks": [
+    {
+      "id": "1",
+      "content": "Renew password",
+      "status": true,
+      "isDeleted": false
+    },
+    {
+      "id": "2",
+      "content": "Meeting",
+      "status": true,
+      "isDeleted": false
+    },
+    {
+      "id": "3",
+      "content": "Sign up for CET-6",
+      "status": false,
+      "isDeleted": false
+    }
+  ]
+}

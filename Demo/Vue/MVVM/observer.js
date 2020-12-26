@@ -21,6 +21,7 @@ class Observer {
             enumerable: true,
             configurable: true,
             get() {
+                
                 return val;
             },
             set(newVal) {
