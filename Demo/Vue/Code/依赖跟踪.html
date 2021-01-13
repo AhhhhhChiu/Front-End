@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<script>
+		window.Dep = class Dep {
+			constructor() {
+				this.subscribers = new Set();
+			}
+			depend() {
+				if (activeUpdate) {
+					this.subscribers.add(activeUpdate);
+				}
+			}
+			notify() {
+				this.subscribers.forEach(sub => sub());
+			}
+		}
+
+		let activeUpdate;
+
+		function autorun(update) {
+			const wrappedUpdate = () => {
+				activeUpdate = wrappedUpdate;
+				update();
+				activeUpdate = null;
+			};
+			wrappedUpdate();
+		}
+
+		// requirements
+		const dep = new Dep();
+
+		// 将autorun的参数(箭头函数)添加到dep的依赖属性种
+		autorun(() => {
+			dep.depend();
+			console.log('update');
+		});
+
+		// 会重新执行一次箭头函数
+		dep.notify();
+
+		// ???
+
+	</script>
+</body>
+
+</html>

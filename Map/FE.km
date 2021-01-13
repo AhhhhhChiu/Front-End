@@ -1,0 +1,199 @@
+{
+    "root": {
+        "data": {
+            "id": "c8gellqfkg80",
+            "created": 1610375861431,
+            "text": "Front-End"
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "c8gemi7bzfk0",
+                    "created": 1610375932110,
+                    "text": "核心"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c8gemkyftu00",
+                            "created": 1610375938102,
+                            "text": "JavaScript"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c8gemmro8sw0",
+                            "created": 1610375942047,
+                            "text": "HTML"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c8gemolsnaw0",
+                            "created": 1610375946045,
+                            "text": "CSS"
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "c8genaz0c0g0",
+                    "created": 1610375994733,
+                    "text": "JS框架",
+                    "expandState": "expand"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c8genjfxdk00",
+                            "created": 1610376013170,
+                            "text": "Vue"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c8genoho2bc0",
+                            "created": 1610376024160,
+                            "text": "React"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c8gens0pbow0",
+                            "created": 1610376031841,
+                            "text": "Angular"
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "c8gex8uj28g0",
+                    "created": 1610376773750,
+                    "text": "工程化"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c8gexf4c1680",
+                            "created": 1610376787404,
+                            "text": "模块化"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c8gexgphov40",
+                            "created": 1610376790860,
+                            "text": "版本管理"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c8gexj1izew0",
+                            "created": 1610376795941,
+                            "text": "依赖管理"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c8gf4xnlfgw0",
+                            "created": 1610377376300,
+                            "text": "语言增强"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c8gf50qq6s80",
+                            "created": 1610377383019,
+                            "text": "构建工具"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c8gf54jetug0",
+                            "created": 1610377391284,
+                            "text": "转换器"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c8gf5672yg80",
+                            "created": 1610377394892,
+                            "text": "CI/CD"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c8gf584iw940",
+                            "created": 1610377399091,
+                            "text": "代码质量"
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "id": "c8gfa70rc6o0",
+                    "created": 1610377788508,
+                    "text": "编程思想",
+                    "layout_mind_offset": {
+                        "x": 575,
+                        "y": 104
+                    }
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "c8gfaz59d1s0",
+                            "created": 1610377849730,
+                            "text": "设计模式"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c8gfb6gpovs0",
+                            "created": 1610377865660,
+                            "text": "架构模式"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c8gfb947y740",
+                            "created": 1610377871435,
+                            "text": "编程范式"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "c8gfbd155gw0",
+                            "created": 1610377879956,
+                            "text": "程序设计"
+                        },
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    "template": "default",
+    "theme": "fresh-blue",
+    "version": "1.4.43"
+}
