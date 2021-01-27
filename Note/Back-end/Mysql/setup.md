@@ -14,25 +14,25 @@
 
 ## 安装
 
-无情next，在`Configuration`那个标签记得选`Use Legacy Password Encryption`填入root用户对应的密码，这个待会开mysql的时候回用到。
+无情next，在`Configuration`那个标签记得选`Use Legacy Password Encryption`填入root用户对应的密码，这个待会开mysql的时候会用到。
 
 ## 配置
 
 打开终端，编辑根目录.bash_profile
 ```cmd
-  cd ~
-  vim ./.bash_profile
+cd ~
+vim ./.bash_profile
 ```
 
 加入这两行然后:wq退出
 ```bash
-  export PATH=$PATH:/usr/local/mysql/bin
-  export PATH=$PATH:/usr/local/mysql/support-files
+export PATH=$PATH:/usr/local/mysql/bin
+export PATH=$PATH:/usr/local/mysql/support-files
 ```
 
 刷新环境变量
 ```cmd
-   source ~/.bash_profile
+  source ~/.bash_profile
 ```
 
 试一下能不能正常跑mysql
@@ -44,8 +44,8 @@ sudo mysql -uroot -p
 
 有一个`mysql>`说明启动成功，不行的话试一下以下操作
 ```cmd
-  vim ~/.zshrc
-  source ~/.bash_profile
+vim ~/.zshrc
+source ~/.bash_profile
 ```
 
 O Justin Bieber K
