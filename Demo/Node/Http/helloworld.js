@@ -8,7 +8,21 @@ http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "text/html" });
     // 解决中文乱码
     res.write("<head><meta charset='UTF-8'></head>");
-    res.write("你好");
+    // res.write("你好");
+
+    // 一个简易路由
+    const path = req.url.replace(/\/?(?:\?.*)?$/, '').toLowerCase();
+    switch (path) {
+        case '':
+            res.write('home');
+            break;
+        case '/about':
+            res.write('about');
+            break;
+        default:
+            res.write('404');
+    }
+
     res.end();
 }).listen(3000);
 
