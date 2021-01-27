@@ -17,6 +17,15 @@ app.get('/about', (_, res) => {
   res.send('About');
 });
 
+app.get('/headers', (req, res) => {
+  res.set('Content-Type','text/plain');
+  let headers = '';
+  Object.keys(req.headers).forEach((key) => {
+    headers = `${headers}${key}: ${req.headers[key]}\n`;
+  });
+  res.send(headers);
+});
+
 app.use((_, res) => {
   res.type('text/plain');
   res.status(404);
