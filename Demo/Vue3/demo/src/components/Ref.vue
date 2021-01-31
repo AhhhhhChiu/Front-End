@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span @click="addCount">{{count}}</span>
+    <span @click="addCount">use: {{count}}</span>
   </div>
 </template>
 
@@ -13,15 +13,15 @@ export default {
       ...useAddCount(),
     };
   },
-  useAddCount() {
-    let count = ref(0);
-    const addCount = () => {
-      count += 1;
-    };
-    return {
-      count, addCount,
-    };
-  },
+};
+const useAddCount = () => {
+  let count = ref(0);
+  const addCount = () => {
+    count.value += 1;
+  };
+  return {
+    count, addCount,
+  };
 };
 </script>
 
