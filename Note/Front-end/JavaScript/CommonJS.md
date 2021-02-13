@@ -153,3 +153,13 @@ if (!module.parent) {
 <h3 id="children">module.children</h3>
 
  返回一个Module数组，表示该模块要用到的其他模块。
+
+## require
+
+### 基本使用
+
+读入并执行一个JavaScript文件，然后返回该模块的exports对象。如果没有发现指定模块，会报错。
+
+### 加载规则
+
+
