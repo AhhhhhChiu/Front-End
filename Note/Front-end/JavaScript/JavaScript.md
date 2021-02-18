@@ -195,3 +195,74 @@ arr.copyWithin(target, start, end) —— 将从位置 start 到 end 的所有�
 arr.flat(depth)/arr.flatMap(fn) 从多维数组创建一个新的扁平数组。
 
 arr.of(element0[, element1[, …[, elementN]]]) 基于可变数量的参数创建一个新的 Array 实例，而不需要考虑参数的数量或类型。
+
+## 函数
+
+### Rest 和 Spread
+
+- `...` 出现在函数参数列表的最后，那么它就是 rest 参数，它会把参数列表中剩余的参数收集到一个数组中。
+- `...` 出现在函数调用或类似的表达式中，那它就是 spread 语法，它会把一个数组展开为列表。
+- `arguments` 是比较旧的用法，箭头函数没有 `arguments`
+
+### 闭包
+
+>一个函数和对其周围状态（lexical environment，词法环境）的引用捆绑在一起（或者说函数被引用包围），这样的组合就是闭包（closure）。也就是说，闭包让你可以在一个内层函数中访问到其外层函数的作用域。在 JavaScript 中，每当创建一个函数，闭包就会在函数创建的同时被创建出来。
+
+```js
+function func() {
+  const number = 1;
+  return function() {
+    return number;
+  }
+}
+const getNumber = func();
+console.log(getNumber()); // 1
+```
+
+### let、var、const
+
+- var 的声明会被提升
+- var 没有块级作用域，只有当前函数内可见或全局可见两种
+- var 可以被重复声明
+- let 声明变量 const 声明常量，其他和var相反
+
+### 函数对象
+
+- name 一个函数的名字可以通过属性 “name” 来访问
+
+  ```js
+  function a () {};
+  console.log(a.name); // "a"
+  ```
+
+- length 返回函数入参的个数（...不会被计算进去）
+- 自定义属性
+  ```js
+  function sayHi() {
+    alert("Hi");
+    // 计算调用次数
+    sayHi.counter++;
+  }
+  sayHi.counter = 0; // 初始值
+  sayHi(); // Hi
+  sayHi(); // Hi
+  alert( `Called ${sayHi.counter} times` ); // Called 2 times
+  ```
+
+### 命名函数表达式
+
+NFE，Named Function Expression，指带有名字的函数表达式
+
+```js
+// 避免发生在内部调用sayHi时，sayHi的值在外部被覆盖而报错的情况
+let sayHi = function func(who) {
+  if (who) {
+    alert(`Hello, ${who}`);
+  } else {
+    func("Guest"); // 使用 func 再次调用函数自身
+  }
+};
+sayHi(); // Hello, Guest
+// 但这不工作：
+func(); // Error, func is not defined（在函数外不可见）
+```
