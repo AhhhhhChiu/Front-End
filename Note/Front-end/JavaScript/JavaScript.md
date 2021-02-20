@@ -196,6 +196,44 @@ arr.flat(depth)/arr.flatMap(fn) 从多维数组创建一个新的扁平数组。
 
 arr.of(element0[, element1[, …[, elementN]]]) 基于可变数量的参数创建一个新的 Array 实例，而不需要考虑参数的数量或类型。
 
+### Map 和 Set
+
+#### Map
+
+Map 是一个带键的数据项的集合，就像一个 Object 一样。 但是它们有一些差别：
+- Map 允许任何类型的键（key）
+- 每一次 map.set 调用都会返回 map 本身，所以可以进行“链式”调用。
+- Object.entries(obj) // 二维数组[[k1, v1], [k2, v2]]
+- Object.fromEntries(arr) // {k1: v1}
+
+它的方法和属性如下：
+
+- new Map([['key', value]]) —— 创建 map，可以传参二维数组。
+- map.set(key, value) —— 根据键存储值。
+- map.get(key) —— 根据键来返回值，如果 map 中不存在对应的 key，则返回 undefined。
+- map.has(key) —— 如果 key 存在则返回 true，否则返回 false。
+- map.delete(key) —— 删除指定键的值。
+- map.clear() —— 清空 map。
+- map.size —— 返回当前元素个数。
+- map.keys() —— 遍历并返回所有的键（returns an iterable for keys），
+- map.values() —— 遍历并返回所有的值（returns an iterable for values），
+- map.entries() —— 遍历并返回所有的实体（returns an iterable for entries）[key, value]，for..of 在默认情况下使用的就是这个。
+
+#### Set
+
+Set 是一个特殊的类型集合 —— “值的集合”（没有键），它的每一个值只能出现一次。它的主要方法如下：
+
+- new Set(iterable) —— 创建一个 set，如果提供了一个 iterable 对象（通常是数组），将会从数组里面复制值到 set 中。
+- set.add(value) —— 添加一个值，返回 set 本身
+- set.delete(value) —— 删除值，如果 value 在这个方法调用的时候存在则返回 true ，否则返回 false。
+- set.has(value) —— 如果 value 在 set 中，返回 true，否则返回 false。
+- set.clear() —— 清空 set。
+- set.size —— 返回元素个数。
+- set.keys() —— 遍历并返回所有的值（returns an iterable object for values），
+- set.values() —— 与 set.keys() 作用相同，这是为了兼容 Map，
+- set.entries() —— 遍历并返回所有的实体（returns an iterable object for entries）[value, value]，它的存在也是为了兼容 Map。
+
+
 ## 函数
 
 ### Rest 和 Spread
@@ -265,4 +303,72 @@ let sayHi = function func(who) {
 sayHi(); // Hello, Guest
 // 但这不工作：
 func(); // Error, func is not defined（在函数外不可见）
+```
+
+### 装饰器
+
+一个特殊的函数，它接受另一个函数并改变它的行为
+
+```js
+// 一个缓存装饰器
+const cachingDecorator = (fn) => {
+  const cache = new Map();
+  return (arg) => {
+    if (cache.has(arg)) {
+      console.log('from cache');
+      return cache.get(arg);
+    } else {
+      const result = fn(arg);
+      cache.set(arg, result);
+      return result;
+    }
+  };
+};
+
+let slow = (arg) => {
+  // 一些复杂的计算
+  return arg * 2;
+};
+
+// 使用缓存装饰器
+slow = cachingDecorator(slow);
+
+// 测试一下
+console.log(slow(1)); // 2
+console.log(slow(1)); // from cache 2
+console.log(slow(2)); // 4
+```
+
+### 箭头函数
+
+- 没有this
+- 没有arguments
+- 不能new
+- 没有super()
+
+## 原型&继承
+
+原型链
+
+![原型链](../../images/原型链.jpg)
+
+__proto__ 被认为是过时且不推荐使用的，现代的方法有：
+
+- Object.create(proto, [descriptors]) —— 利用给定的 proto 作为 [[Prototype]] 和可选的属性描述来创建一个空对象。
+- Object.getPrototypeOf(obj) —— 返回对象 obj 的 [[Prototype]]。
+- Object.setPrototypeOf(obj, proto) —— 将对象 obj 的 [[Prototype]] 设置为 proto。
+
+```js
+let animal = {
+  eats: true
+};
+// 创建一个以 animal 为原型的新对象 第二个参数为额外的属性
+let rabbit = Object.create(animal, {
+  jumps: {
+    value: true,
+  },
+});
+alert(rabbit.eats); // true
+alert(Object.getPrototypeOf(rabbit) === animal); // true
+Object.setPrototypeOf(rabbit, {}); // 将 rabbit 的原型修改为 {}
 ```
