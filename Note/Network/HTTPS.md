@@ -115,7 +115,10 @@ Hacker->Client: I am ready too
 3. CA用自己的私钥向公钥 `publicKey` 做数字签名生成 `license` 发给服务端
 4. 服务端把 `license` 发给客户端
 5. 客户端使用本地准备好的CA私钥解密 `license` 拿到公钥 `publicKey`
-6. 此时客户端上存有公钥 `publicKey`，服务端上有公钥 `publicKey` 和私钥 `privateKey`，开始通信
+6. 客户端在本地生成一个随机的 `randomKey` 存在本地
+7. 客户端使用公钥加密 `randomKey` 后发送给服务端
+8. 服务端拿到密文后用私钥 `privateKey` 解密出 `randomKey` 存在本地
+9. 后续双方发送和接收都使用 `randomKey` 进行对称加密
 
 ```sequence
 participant Client as Client
@@ -129,9 +132,10 @@ CA->Server: license
 Client->Server: ask for publicKey
 Server->Client: license
 Note left of Client: sign(publicKeyCA, license) => publicKey
-Note left of Client: algorithm(publicKey, "hello") => ciphertext
+Note left of Client: random() => randomKey
+Note left of Client: algorithm(publicKey, randomKey) => ciphertext
 Client->Server: ciphertext
-Note right of Server: algorithm(privateKey, ciphertext) => "hello"
+Note right of Server: algorithm(privateKey, ciphertext) => randomKey
 ```
 
 ## 详细版本
@@ -139,26 +143,37 @@ Note right of Server: algorithm(privateKey, ciphertext) => "hello"
 ```sequence
 participant Client as Client
 participant Server as Server
-participant CA as CA
 
-Server->CA: publicKey
-Note right of CA: validate developer...
-Note right of CA: sign(privateKeyCA, publicKey) => license
-CA->Server: license
-Client->Server: Supported SSL version; Cipher Suite list;
-Note right of Server: pick SSL and Cipher Suite
-Server->Client: SSL version; Cipher Suite;
-Server->Client: license
-Server->Client: “Server Hello Done”
-Note left of Client: sign(publicKeyCA, license) => publicKey
-Note left of Client: algorithm(publicKey, Pre-master secret) => ciphertext
-Client->Server: ciphertext
-Client->Server: “Let's use Pre-master secret to encrypt”
-Client->Server: “Finished”
-Server->Client: “Let's use Pre-master secret to encrypt”
-Server->Client: “Finished”
-Note left of Client: algorithm(Pre-master secret, "hello") => ciphertext
-Client->Server: ciphertext
-Note right of Server: algorithm(Pre-master secret, ciphertext) => "hello"
-
+Client->Server: TCP三报文握手建立连接
+Server->Client: 
+Client->Server: 
+Client->Server: ①客户端SSL版本; 密码套件列表; 随机数C;
+Server->Client: ②确定SSL版本; 使用密码套件(RSA); 随机数S;
+Server->Client: ③license(带有服务器公钥publicKey)
+Server->Client: ④服务器Hello完成
+Note left of Client: 使用CA公钥校验license取出服务器公钥publicKey
+Note left of Client: 随机生成一个pre-master，用publicKey加密后发给服务器
+Note left of Client: 使用C、S、pre-master计算得出会话秘钥
+Client->Server: ⑤加密后的pre-master
+Note right of Server: 用服务器上的私钥privateKey解密拿到pre-master
+Note right of Server: 使用C、S、pre-master计算得出会话秘钥
+Client->Server: ⑥之后改用会话秘钥加密通信
+Client->Server: ⑦Finished
+Server->Client: ⑧之后改用会话秘钥加密通信
+Server->Client: ⑨Finished
+Client->Server: 会话秘钥加密通信
+Server->Client: 会话秘钥加密通信
+Note left of Client: 想断开连接了
+Client->Server: ⑩close_notify
+Client->Server: TCP四报文挥手断开连接
+Server->Client: 
+Server->Client: 
+Client->Server: 
 ```
+
+## HTTP 和 HTTPS 的区别
+
+1. HTTP 是明文传输的，HTTPS 是具有安全性的 SSL 加密传输协议
+2. HTTP 比较快，HTTPS 会慢 2 ~ 100 倍
+3. HTTP 使用的端口是 80，HTTPS 为 443
+4. HTTP 建立连接比较简单，只需要三报文握手，HTTPS 除了 TCP 三报文握手还要进行 SSL 握手
