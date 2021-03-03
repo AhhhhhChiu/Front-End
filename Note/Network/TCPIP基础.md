@@ -453,4 +453,50 @@ FTP客户和服务器之间要建立以下两个并行的TCP连接:
 - 数据连接，用于文件传输，在每次文件传输时才建立，传输结束就关闭。
 - 默认情况下，FTP使用TCP 21端口进行控制连接，TCP 20端口进行数据连接。但是， 是否使用TCP 20端口建立数据连接与传输模式有关，主动方式使用TCP 20端口,被动方式由服务器和客户端自行协商决定。
 
-### www
+### 超文本传输协议HTTP
+
+#### 状态码
+
+|状态码|含义|
+|-|-|
+|1xx|信息响应|
+|2xx|成功响应|
+|3xx|重定向|
+|4xx|客户端错误|
+|5xx|服务端错误|
+
+常见状态码
+
+- 200 
+
+#### 重定向
+
+http重定向
+- 永久重定向
+  - 301 Moved Permanently - GET不会变 其他可能会变GET
+  - 308 Permanent Redirect - 一切不变
+- 临时重定向
+  - 302 Found - GET不会变 其他可能会变GET
+  - 303 See Other - GET不会变 其他可能会变GET 消息主体会丢失
+  - 307 Temporary Redirect - 一切不变
+- 特殊重定向
+  - 304 Not Modified - 使页面跳转到本地陈旧的缓存版本当中
+
+html重定向
+```html
+<head>
+  <meta http-equiv="Refresh" content="0; URL=http://example.com/" />
+</head>
+```
+
+js重定向
+```js
+window.location = "http://example.com/";
+```
+
+优先级
+`http > html > js`
+
+#### HTTPS
+
+直接戳这里[这里](./HTTPS.md)
