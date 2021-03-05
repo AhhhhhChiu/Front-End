@@ -142,60 +142,6 @@ alert( 'Interface'.toLowerCase() ); // interface
 - substring(start, end)	start 与 end 之间（包括 start，但不包括 end）	负值代表 0
 - substr(start, length)	从 start 开始获取长为 length 的字符串	允许 start 为负值
 
-### 数组
-
-- 添加/删除元素：
-
-  - **push(...items)** —— 向尾端添加元素，
-  - **pop()** —— 从尾端提取一个元素，
-  - **shift()** —— 从首端提取一个元素，
-  - **unshift(...items)** —— 向首端添加元素，
-  - **splice(pos, deleteCount, ...items)** —— 从 pos 开始删除 deleteCount 个元素，并插入 items。
-  - **slice(start, end)** —— 创建一个新数组，将从索引 start 到索引 end（但不包括 end）的元素复制进去。
-  - **concat(...items)** —— 返回一个新数组：复制当前数组的所有元素，并向其中添加 items。如果 items 中的任意一项是一个数组，那么就取其元素。
-
-- 搜索元素：
-  - **indexOf/lastIndexOf(item, pos)** —— 从索引 pos 开始搜索 item，搜索到则返回该项的索引，否则返回 -1。
-  - **includes(value)** —— 如果数组有 value，则返回 true，否则返回 false。
-  - **find/filter(func)** —— 通过 func 过滤元素，返回使 func 返回 true 的第一个值/所有值。
-  - **findIndex** 和 find 类似，但返回索引而不是值。
-- 遍历元素：
-  - **forEach(func)** —— 对每个元素都调用 func，不返回任何内容。
-- 转换数组：
-  - **map(func)** —— 根据对每个元素调用 func 的结果创建一个新数组。
-  - **sort(func)** —— 对数组进行原位（in-place）排序，然后返回它。
-  - **reverse()** —— 原位（in-place）反转数组，然后返回它。
-  - **split/join** —— 将字符串转换为数组/将数组转换为字符串并返回。
-  - **reduce/reduceRight(func, initial)** —— 通过对每个元素调用 func 计算数组上的单个值，并在调用之间传递中间结果。
-  - **Array.from(arrayLike)** —— 从一个类似数组或可迭代对象创建一个新的，浅拷贝的数组实例。
-  - **Array.of()** 和Array()类似，但参数为一个number时，返回包含该number的数组。`Array.of(1); // [1]`
-- 其他：
-  - **Array.isArray(arr)** 检查 arr 是否是一个数组。
-> 请注意，sort，reverse 和 splice 方法修改的是数组本身。
-
-这些是最常用的方法，它们覆盖 99％ 的用例。但是还有其他几个：
-
-arr.some(fn)/arr.every(fn) 检查数组。
-
-与 map 类似，对数组的每个元素调用函数 fn。如果任何/所有结果为 true，则返回 true，否则返回 false。
-
-这两个方法的行为类似于 || 和 && 运算符：如果 fn 返回一个真值，arr.some() 立即返回 true 并停止迭代其余数组项；如果 fn 返回一个假值，arr.every() 立即返回 false 并停止对其余数组项的迭代。
-
-我们可以使用 every 来比较数组：
-
-function arraysEqual(arr1, arr2) {
-  return arr1.length === arr2.length && arr1.every((value, index) => value === arr2[index]);
-}
-
-alert( arraysEqual([1, 2], [1, 2])); // true
-arr.fill(value, start, end) —— 从索引 start 到 end，用重复的 value 填充数组。
-
-arr.copyWithin(target, start, end) —— 将从位置 start 到 end 的所有元素复制到 自身 的 target 位置（覆盖现有元素）。
-
-arr.flat(depth)/arr.flatMap(fn) 从多维数组创建一个新的扁平数组。
-
-arr.of(element0[, element1[, …[, elementN]]]) 基于可变数量的参数创建一个新的 Array 实例，而不需要考虑参数的数量或类型。
-
 ### Map 和 Set
 
 #### Map
@@ -350,7 +296,7 @@ console.log(slow(2)); // 4
 
 原型链
 
-![原型链](../../images/原型链.jpg)
+![原型链](./images/原型链.jpg)
 
 __proto__ 被认为是过时且不推荐使用的，现代的方法有：
 
@@ -371,108 +317,6 @@ let rabbit = Object.create(animal, {
 alert(rabbit.eats); // true
 alert(Object.getPrototypeOf(rabbit) === animal); // true
 Object.setPrototypeOf(rabbit, {}); // 将 rabbit 的原型修改为 {}
-```
-
-### 继承
-
-#### 原型链
-
-利用原型让一个引用类型继承另一个引用类型的属性和方法。即把父实例赋给子.prototype实现继承
-
-```js
-function Father () {};
-function Son () {};
-// 查找是顺着__proto__往上找的
-// 因此不可以直接Son.prototype = Father;
-Son.prototype = new Father();
-```
-
-缺点
-
-- 父实例中的引用类型属性将会被所有子共享
-- 没有办法在不影响所有实例的情况下给超类型的构造函数传参
-
-#### 借用构造函数
-
-在子类型构造函数的内部调用超类型构造函数。即function Son () { Father.call(this) }
-
-```js
-function Father () {};
-function Son () {
-  Father.call(this);
-};
-```
-
-缺点
-
-- 必须在构造函数中定义方法，因此函数不能被实例复用
-- 子类无法访问父类原型上定义的方法
-
-#### 组合继承 ( 原型链 + 借用构造函数 ) —— 最常用的继承实现方式
-
-使用原型链实现对原型属性和方法的继承，而通过借用构造方法来实现对实例属性的继承
-
-```js
-function Father () {};
-function Son () {
-  Father.call(this);
-};
-Son.prototype = new Father();
-Son.prototype.constructs = Son;
-```
-
-缺点
-
-- 会两次重复调用父类的构造方法
-
-#### 原型式继承
-
-创建一个临时构造函数，将传入的对象赋值给这个构造函数的原型，然后返回这个临时类型的一个实例。即`Object.create()`的实现，es5+可以直接使用`Object.create()`
-
-```js
-function create (father[, options]) {
-  function Son () {};
-  Son.prototype = father;
-  return new Son();
-};
-```
-
-缺点
-
-- 和原型链继承一样，父实例中的引用类型属性将会被所有子共享
-
-#### 寄生式继承
-
-和原型式继承类似，创建一个实现继承的函数，以某种方式增强对象然后返回这个对象
-
-```js
-function createAnother (original) {
-  let clone = create(original);
-  clone.feature = function () {}; // 增强对象
-  return clone;
-}
-```
-
-缺点
-
-- 和原型继承、原型链继承一样，父实例中的引用类型属性将会被所有子共享
-- 函数是添加到实例上的，不能被所有实例复用
-
-#### 寄生组合式继承
-
-把组合继承中使用原型链的部分 即Son.prototype = new Father()换成了创建一个父类原型的副本赋给子原型，因此可以少调用一次超类的构造函数，也被认为是引用类型最理想的继承范式
-
-```js
-function Father () {};
-function Son () {
-  Father.call(this);
-};
-// 组合继承这里会重复调用父类构造函数
-// Son.prototype = new Father();
-const Copy = function () {}; // 创建空构造函数
-Copy.prototype = Father.Prototype; // 复制父类原型
-Son.prototype = new Copy(); // 继承实例
-Son.prototype.constructs = Son;
 ```
 
 ## 异步
