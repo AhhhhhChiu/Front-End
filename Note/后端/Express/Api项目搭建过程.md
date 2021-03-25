@@ -104,7 +104,7 @@ db.sequelize.sync();
 ```js
 // controllers -> users.controller.js
 
-const User = require('../models');
+const User = require('../models').user;
 exports.findAll = (_, res) => {
   User.findAll().then((data) => {
     res.send(data);
